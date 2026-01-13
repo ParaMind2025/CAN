@@ -44,7 +44,7 @@ We compare CliffordNet against established efficient backbones under a rigorous 
 | **CAN-Fast**           | **2.6M** | **No**  |   $32^2$   | **77.63%** | <span style="color:green">**+6.7% vs MobileNet**</span>      |
 | **CAN-Base**           |   3.0M   | Ratio=1 |   $32^2$   | **78.05%** | <span style="color:green">**SOTA**</span>                    |
 
-> **Key Insight:** The **CAN-Fast** model completely removes the FFN block ($\text{mlp\_ratio}=0$), yet achieves **77.63%** accuracy. This empirically validates that **geometric interactions > generic depth**.
+> **Key Insight:** The **CAN-Fast** model completely removes the FFN block (mlp_ratio=0), yet achieves **77.63%** accuracy. This empirically validates that **geometric interactions > generic depth**.
 
 ## 🏗️ Architecture
 
