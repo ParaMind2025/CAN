@@ -48,7 +48,7 @@ We compare CliffordNet against established efficient backbones under a rigorous 
 
 ## 🏗️ Architecture
 
-The core of CliffordNet is the **Dual-Stream Geometric Block**, governed by the discretized geometric evolution equation:
+The core of CliffordNet is the **Dual-Stream Geometric Block**, governed by the dynamic geometric evolution equation:
 
 $$ 
 \frac{\partial H}{\partial t} = \mathcal{P}\Big( \underbrace{H \cdot \mathcal{C}}_{\text{Diffusion}} \oplus \underbrace{H \wedge \mathcal{C}}_{\text{Geometric Flow}} \Big) 
