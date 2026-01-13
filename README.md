@@ -14,4 +14,5 @@
 are not only consistent with one another, but they
 are actually parts of a larger whole.”
 — William Kingdon Clifford, 1878
+
 </div>
