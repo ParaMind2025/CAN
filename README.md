@@ -10,7 +10,7 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2601.06793-b31b1b.svg)](https://arxiv.org/abs/2601.06793)
 [![Hardware](https://img.shields.io/badge/Triton-Accelerated-blue)](https://triton-lang.org/)
 
->“The two systems [Hamilton’s and Grassmann’s]
+“The two systems [Hamilton’s and Grassmann’s]
 are not only consistent with one another, but they
 are actually parts of a larger whole.”
 
