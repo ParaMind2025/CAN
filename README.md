@@ -27,4 +27,49 @@ Our **"No-FFN"** variant demonstrates that this geometric interaction is so expr
 ## 🚀 News & Updates
 
 *   **[2026-01-12]** ⚡ **Performance Preview:** We have successfully implemented a custom **Fused Triton Kernel** for the Clifford Interaction layer. Preliminary benchmarks on RTX 4090 show a **10x kernel speedup** and **~2x end-to-end training speedup**. *Code coming soon!*
-*   **[2026-01-1]** 🏆 **SOTA on CIFAR-100:** Our Nano model (1.4M) matches ResNet-18 (11M), and our No-FFN model outperforms MobileNetV2 by >6%.
+*   **[2026-01-01]** 🏆 **SOTA on CIFAR-100:** Our Nano model (1.4M) matches ResNet-18 (11M), and our No-FFN model outperforms MobileNetV2 by >6%.
+
+## 🏆 Main Results (CIFAR-100)
+
+We compare CliffordNet against established efficient backbones under a rigorous "Modern Training Recipe" (200 Epochs, AdamW, AutoAugment, DropPath).
+
+| Model Variant          |  Params  |  FFN?   | Resolution | Top-1 Acc  | vs. Baseline                                                 |
+| :--------------------- | :------: | :-----: | :--------: | :--------: | :----------------------------------------------------------- |
+| **Baselines**          |          |         |            |            |                                                              |
+| MobileNetV2            |   2.3M   |   Yes   |   $32^2$   |   70.90%   | -                                                            |
+| ViT-Tiny               |   5.7M   |   Yes   |   $32^2$   |   72.50%   | -                                                            |
+| ResNet-18              |  11.2M   |   Yes   |   $32^2$   |   76.63%   | -                                                            |
+| **CliffordNet (Ours)** |          |         |            |            |                                                              |
+| **CAN-Nano**           | **1.4M** | **No**  |   $32^2$   | **76.41%** | <span style="color:green">**Match ResNet-18 (1/8 Params)**</span> |
+| **CAN-Fast**           | **2.6M** | **No**  |   $32^2$   | **77.63%** | <span style="color:green">**+6.7% vs MobileNet**</span>      |
+| **CAN-Base**           |   3.0M   | Ratio=1 |   $32^2$   | **78.05%** | <span style="color:green">**SOTA**</span>                    |
+
+> **Key Insight:** The **CAN-Fast** model completely removes the FFN block ($\text{mlp\_ratio}=0$), yet achieves **77.63%** accuracy. This empirically validates that **geometric interactions > generic depth**.
+
+## 🏗️ Architecture
+
+The core of CliffordNet is the **Dual-Stream Geometric Block**, governed by the discretized geometric evolution equation:
+
+$$ 
+\frac{\partial H}{\partial t} = \mathcal{P}\Big( \underbrace{H \cdot \mathcal{C}}_{\text{Diffusion}} \oplus \underbrace{H \wedge \mathcal{C}}_{\text{Geometric Flow}} \Big) 
+$$
+
+Where $\mathcal{C}$ is the local context approximated by a **Factorized Linear Laplacian**, and the interaction is fused via our **Gated Geometric Residual (GGR)** mechanism.
+
+## 🖊️ Citation
+
+If you find this work helpful, please cite us:
+
+```bibtex
+@article{2026cliffordnet,
+  title={CliffordNet: All You Need is Geometric Algebra},
+  author={Zhongping Ji},
+  journal={arXiv preprint arXiv:2601.06793},
+  year={2026}
+}
+```
+
+## 🙏 Acknowledgement
+
+We thank the open-source community for the implementations of `timm`, which facilitated our baseline comparisons. 
+
