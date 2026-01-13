@@ -1,4 +1,5 @@
 <div align="center">
+
 # CliffordNet: All You Need is Geometric Algebra
   
 > Geometry is not just a constraint; it is the computation itself.
