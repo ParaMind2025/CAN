@@ -26,6 +26,11 @@ Our **"No-FFN"** variant demonstrates that this geometric interaction is so expr
 
 ## 🚀 News & Updates
 
+*   **[2026-02-17]** 🔥 **Code Release:** Model and training code will be released!
+*   **[2026-01-20]** 🏆 **New SOTA:**
+    *   **Nano (1.4M)** reaches **77.82%**, outperforming ResNet-18 (11M).
+    *   **Lite (2.6M)** reaches **79.05%** without FFN, rivaling ResNet-50.
+    *   **32-Layer Deep Model** achieves **81.42%** with only 4.8M parameters.
 *   **[2026-01-12]** ⚡ **Performance Preview:** We have successfully implemented a custom **Fused Triton Kernel** for the Clifford Interaction layer. Preliminary benchmarks on RTX 4090 show a **10x kernel speedup** and **~2x end-to-end training speedup**. *Code coming soon!*
 *   **[2026-01-01]** 🏆 **SOTA on CIFAR-100:** Our Nano model (1.4M) matches ResNet-18 (11M), and our No-FFN model outperforms MobileNetV2 by >6%.
 
