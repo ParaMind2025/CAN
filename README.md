@@ -38,18 +38,21 @@ Our **"No-FFN"** variant demonstrates that this geometric interaction is so expr
 
 We compare CliffordNet against established efficient backbones under a rigorous "Modern Training Recipe" (200 Epochs, AdamW, AutoAugment, DropPath).
 
-| Model Variant          |  Params  |  FFN?   | Resolution | Top-1 Acc  | vs. Baseline                                                 |
-| :--------------------- | :------: | :-----: | :--------: | :--------: | :----------------------------------------------------------- |
-| **Baselines**          |          |         |            |            |                                                              |
-| MobileNetV2            |   2.3M   |   Yes   |   $32^2$   |   70.90%   | -                                                            |
-| ViT-Tiny               |   5.7M   |   Yes   |   $32^2$   |   72.50%   | -                                                            |
-| ResNet-18              |  11.2M   |   Yes   |   $32^2$   |   76.63%   | -                                                            |
-| **CliffordNet (Ours)** |          |         |            |            |                                                              |
-| **CAN-Nano**           | **1.4M** | **No**  |   $32^2$   | **76.41%** | <span style="color:green">**Match ResNet-18 (1/8 Params)**</span> |
-| **CAN-Fast**           | **2.6M** | **No**  |   $32^2$   | **77.63%** | <span style="color:green">**+6.7% vs MobileNet**</span>      |
-| **CAN-Base**           |   3.0M   | Ratio=1 |   $32^2$   | **78.05%** | <span style="color:green">**SOTA**</span>                    |
+### Efficiency & Performance
+| Model Variant | Params | MLP Ratio | Context Mode | Top-1 Acc | vs. Baseline |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **Baselines** | | | | | |
+| MobileNetV2 | 2.3M | - | - | 70.90% | - |
+| ShuffleNetV2 1.5x | 2.6M | - | - | 75.95% | - |
+| ResNet-18 | 11.2M | - | - | 76.75% | - |
+| ResNet-50 | 23.7M | - | - | 79.14% | - |
+| **CliffordNet (Ours)** | | | | | |
+| **CAN-Nano** | **1.4M** | **0.0** | Diff ($\Delta H$) | **77.82%** | <span style="color:green">**> ResNet-18**</span> |
+| **CAN-Lite** | **2.6M** | **0.0** | Diff ($\Delta H$) | **79.05%** | <span style="color:green">**~ ResNet-50**</span> |
+| **CAN-32 (Deep)**| 4.8M | 0.0 | Full | **81.42%** | <span style="color:green">**SOTA**</span> |
+| **CAN-64 (Deep)**| 8.6M | 0.0 | Full | **82.46%** | <span style="color:green">**SOTA**</span> |
 
-> **Key Insight:** The **CAN-Fast** model completely removes the FFN block (mlp_ratio=0), yet achieves **77.63%** accuracy. This empirically validates that **geometric interactions > generic depth**.
+> **Key Insight:** Our **Nano** variant (1.4M) outperforms the heavy-weight **ResNet-18** (11.2M) by **+1.07%** while using **$8\times$ fewer parameters**. The **Lite** variant (No-FFN) effectively matches ResNet-50 with **$9\times$ fewer parameters**.
 
 ## 🏗️ Architecture
 
