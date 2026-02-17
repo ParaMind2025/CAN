@@ -26,7 +26,7 @@ Our **"No-FFN"** variant demonstrates that this geometric interaction is so expr
 
 ## 🚀 News & Updates
 
-*   **[2026-02-17]** 🔥 **Code Released.**
+*   **[2026-02-17]** 🔥 **Released the code for preliminary experiments on CIFAR-100.**
 *   **[2026-01-20]** 🏆 **New SOTA:**
     *   **Nano (1.4M)** reaches **77.82%**, outperforming ResNet-18 (11M).
     *   **Lite (2.6M)** reaches **79.05%** without FFN, rivaling ResNet-50.
@@ -71,6 +71,12 @@ $$
 ## 🛠️ Usage
 
 CliffordNet supports two execution modes: a **High-Performance Mode** (using custom CUDA kernels) and a **Compatibility Mode** (pure PyTorch).
+
+Requirements:
+
+```
+torch>=2.0.0
+```
 
 ### 1. Installation (Hardware Acceleration)
 Install the compiled `clifford_thrust` wheel matching your environment:
