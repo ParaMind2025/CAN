@@ -73,7 +73,7 @@ $$
 CliffordNet supports two execution modes: a **High-Performance Mode** (using custom CUDA kernels) and a **Compatibility Mode** (pure PyTorch).
 
 ### 1. Installation (Hardware Acceleration)
-To enable the **10$\times$ kernel speedup** and **2$\times$ training speedup**, please install the compiled `clifford_thrust` wheel matching your environment:
+Install the compiled `clifford_thrust` wheel matching your environment:
 
 *   **Python 3.10 + CUDA 11.8**
     ```bash
