@@ -26,7 +26,7 @@ Our **"No-FFN"** variant demonstrates that this geometric interaction is so expr
 
 ## 🚀 News & Updates
 
-*   **[2026-02-17]** 🔥 **Code Release:** Model and training code will be released!
+*   **[2026-02-17]** 🔥 **Code Released.**
 *   **[2026-01-20]** 🏆 **New SOTA:**
     *   **Nano (1.4M)** reaches **77.82%**, outperforming ResNet-18 (11M).
     *   **Lite (2.6M)** reaches **79.05%** without FFN, rivaling ResNet-50.
@@ -47,8 +47,8 @@ We compare CliffordNet against established efficient backbones under a rigorous 
 | ResNet-18 | 11.2M | - | - | 76.75% | - |
 | ResNet-50 | 23.7M | - | - | 79.14% | - |
 | **CliffordNet (Ours)** | | | | | |
-| **CAN-Nano** | **1.4M** | **0.0** | Diff ($\Delta H$) | **77.82%** | <span style="color:green">**> ResNet-18**</span> |
-| **CAN-Lite** | **2.6M** | **0.0** | Diff ($\Delta H$) | **79.05%** | <span style="color:green">**~ ResNet-50**</span> |
+| **CAN-Nano** | **1.4M** | **0.0** | Diff ($\Delta H$) | **77.82%** | <span style="color:green">> ResNet-18</span> |
+| **CAN-Lite** | **2.6M** | **0.0** | Diff ($\Delta H$) | **79.05%** | <span style="color:green">~ ResNet-50</span> |
 | **CAN-32 (Deep)**| 4.8M | 0.0 | Full | **81.42%** | <span style="color:green">**SOTA**</span> |
 | **CAN-64 (Deep)**| 8.6M | 0.0 | Full | **82.46%** | <span style="color:green">**SOTA**</span> |
 
