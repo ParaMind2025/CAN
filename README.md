@@ -82,7 +82,7 @@ python>=3.10
 ### 1. Installation (Hardware Acceleration)
 Install the compiled `clifford_thrust` wheel matching your environment。
 
-> ⚠️ **Note:** The provided wheels are currently optimized and tested specifically for **NVIDIA RTX 4090** (Compute Capability 8.9). For other GPUs, please build from source or use the standard PyTorch mode.
+> ⚠️ **Note:** The provided wheels are currently optimized and tested specifically for **NVIDIA RTX 4090** (Compute Capability 8.9). For other GPUs, please use the standard PyTorch mode.
 
 *   **Python 3.10 + CUDA 11.8**
     ```bash
