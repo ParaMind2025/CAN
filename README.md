@@ -54,15 +54,89 @@ We compare CliffordNet against established efficient backbones under a rigorous 
 
 > **Key Insight:** Our **Nano** variant (1.4M) outperforms the heavy-weight **ResNet-18** (11.2M) by **+1.07%** while using **$8\times$ fewer parameters**. The **Lite** variant (No-FFN) effectively matches ResNet-50 with **$9\times$ fewer parameters**.
 
-## 🏗️ Architecture
+## 🏗️ Architecture & Theory
 
-The core of CliffordNet is the **Dual-Stream Geometric Block**, governed by the dynamic geometric evolution equation:
+The evolution of features in CliffordNet is governed by a **Geometric Diffusion-Reaction Equation**. We introduce a unified superposition principle that integrates local differential context and global mean fields:
 
-$$ 
-\frac{\partial H}{\partial t} = \mathcal{P}\Big( \underbrace{H \cdot \mathcal{C}}_{\text{Diffusion}} \oplus \underbrace{H \wedge \mathcal{C}}_{\text{Geometric Flow}} \Big) 
+$$
+\frac{\partial H}{\partial t} = \mathcal{P}_{loc}\Big( H (\mathcal{C}_{loc}) \Big) + \beta \cdot \mathcal{P}_{glo}\Big( H (\mathcal{C}_{glo}) \Big) 
 $$
 
-Where $\mathcal{C}$ is the local context approximated by a **Factorized Linear Laplacian**, and the interaction is fused via our **Gated Geometric Residual (GGR)** mechanism.
+Where $\mathcal{C}_{loc} \approx \Delta H$ (Local Laplacian) and $\mathcal{C}_{glo} = \text{GlobalAvg}(H)$. The interaction term is expanded via the **Clifford Geometric Product**, unifying scalar and bivector components:
+
+$$
+\mathcal{P}\Big( H(\mathcal{C}) \Big) = \mathcal{P}\Big( \underbrace{\mathcal{D}(H, \mathcal{C})}_{\text{Scalar Component}} \oplus \underbrace{\mathcal{W}(H, \mathcal{C})}_{\text{Bivector Component}} \Big)
+$$
+
+## 🛠️ Usage
+
+CliffordNet supports two execution modes: a **High-Performance Mode** (using custom CUDA kernels) and a **Compatibility Mode** (pure PyTorch).
+
+### 1. Installation (Hardware Acceleration)
+To enable the **10$\times$ kernel speedup** and **2$\times$ training speedup**, please install the compiled `clifford_thrust` wheel matching your environment:
+
+*   **Python 3.10 + CUDA 11.8**
+    ```bash
+    pip install cuda/clifford_thrust-0.0.1-cp310-cp310-linux_x86_64.whl
+    ```
+
+*   **Python 3.12 + CUDA 12.8**
+    ```bash
+    pip install cuda/clifford_thrust-0.0.1-cp312-cp312-linux_x86_64.whl
+    ```
+
+### 2. Training
+
+To launch training, simply run the script. The code automatically handles the fallback if the accelerated kernels are not installed.
+
+*   **Accelerated Mode (Recommended):**
+    Requires `clifford_thrust` installed.
+    ```bash
+    python train.py --enable_cuda
+    ```
+
+*   **Standard Mode (Pure PyTorch):**
+    Works on any device (MPS/CUDA) without extra dependencies.
+    ```bash
+    python train.py
+    ```
+
+### 3. Python API & Model Zoo
+
+You can instantiate the models directly using the `CliffordNet` class. Below are the configurations for our top-performing variants.
+
+```python
+from model import CliffordNet
+
+# ---------------------------------------------------------
+# 1. CliffordNet-Nano (1.4M)
+# ---------------------------------------------------------
+model_nano = CliffordNet(
+    num_classes=100,
+    patch_size=2,
+    embed_dim=128,
+    depth=12,
+    cli_mode='full',
+    ctx_mode='diff',
+    shifts=[1, 2],
+    drop_path_rate=0.3
+)
+
+# ---------------------------------------------------------
+# 2. CliffordNet-Lite (2.6M)
+# ---------------------------------------------------------
+model_lite = CliffordNet(
+    num_classes=100,
+    patch_size=2,
+    embed_dim=128,
+    depth=12,
+    cli_mode='full',
+    ctx_mode='diff',
+    shifts=[1, 2, 4, 8, 16], 
+    drop_path_rate=0.3
+)
+```
+
 
 ## 🖊️ Citation
 
