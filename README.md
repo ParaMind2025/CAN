@@ -49,8 +49,9 @@ We compare CliffordNet against established efficient backbones under a rigorous 
 | **CliffordNet (Ours)** | | | | | |
 | **CAN-Nano** | **1.4M** | **0.0** | Diff ($\Delta H$) | **77.82%** | <span style="color:green">> ResNet-18</span> |
 | **CAN-Lite** | **2.6M** | **0.0** | Diff ($\Delta H$) | **79.05%** | <span style="color:green">~ ResNet-50</span> |
-| **CAN-32 (Deep)**| 4.8M | 0.0 | Full | **81.42%** | <span style="color:green">**SOTA**</span> |
+| **CAN-32**| 4.8M | 0.0 | Full | **81.42%** | <span style="color:green">**SOTA**</span> |
 | **CAN-64 (Deep)**| 8.6M | 0.0 | Full | **82.46%** | <span style="color:green">**SOTA**</span> |
+| **CAN-96 (Deep)**| 12.8M | 0.0 | Full | **83.47%** | <span style="color:green">**SOTA**</span> |
 
 > **Key Insight:** Our **Nano** variant (1.4M) outperforms the heavy-weight **ResNet-18** (11.2M) by **+1.07%** while using **$8\times$ fewer parameters**. The **Lite** variant (No-FFN) effectively matches ResNet-50 with **$9\times$ fewer parameters**.
 
@@ -67,6 +68,19 @@ Where $\mathcal{C}_{loc} \approx \Delta H$ (Local Laplacian) and $\mathcal{C}_{g
 $$
 \mathcal{P}\Big( H(\mathcal{C}) \Big) = \mathcal{P}\Big( \underbrace{\mathcal{D}(H, \mathcal{C})}_{\text{Scalar Component}} \oplus \underbrace{\mathcal{W}(H, \mathcal{C})}_{\text{Bivector Component}} \Big)
 $$
+
+### Hierarchical Pyramid CAN
+
+For dense medical visual patterns, we further extend CAN into a **hierarchical pyramid backbone** implemented in [`model_hier.py`](/Users/xyz/Desktop/can_class/model_hier.py). Instead of keeping a single spatial scale throughout the network, `HierarchicalCliffordNet` gradually reduces resolution while increasing semantic capacity across stages.
+
+The implementation follows a simple four-part design:
+
+1. **GeometricStem** builds the initial feature map using convolutional patch embedding. The stem supports `patch_size` in `{1, 2, 4, }` so the model can trade off local detail and efficiency.
+2. **Stage-wise Clifford blocks** stack `CliffordAlgebraBlock` modules inside each stage. In every block, the input is normalized, split into a state branch (`1x1` projection) and a context branch (depthwise spatial mixing), and then fused through Clifford interaction plus a learned gate.
+3. **StageDownsample** connects adjacent stages. The default `conv` mode uses depthwise stride-2 convolution followed by a `1x1` projection, forming a standard feature pyramid that preserves locality while changing channel width.
+4. **Classification head** applies global average pooling, `LayerNorm`, and a linear classifier on the final-stage representation.
+
+This design is controlled by `stage_depths` and `stage_dims`: the former defines how many Clifford blocks are used at each scale, and the latter defines the channel width of each pyramid level. In the released medical training scripts, a representative setting is a 3-stage pyramid with `stage_depths=(3,4,5)`, `stage_dims=(32,64,96)`, `patch_size=2`, and `downsample_mode="conv"`
 
 ## 🛠️ Usage
 
@@ -145,6 +159,32 @@ model_lite = CliffordNet(
     drop_path_rate=0.3
 )
 ```
+
+For pyramid experiments, instantiate the hierarchical backbone directly:
+
+```python
+from model_hier import HierarchicalCliffordNet
+
+model = HierarchicalCliffordNet(
+    num_classes=8,
+    patch_size=2,
+    cli_mode="full",
+    ctx_mode="diff",
+    shifts=(1,),
+    stage_depths=(3,4,5),
+    stage_dims=(32,64,96),
+    downsample_mode="conv",
+    drop_path_rate=0.1,
+    enable_cuda=True,
+)
+```
+
+The same interface can be scaled by modifying:
+
+* `stage_depths`: number of Clifford blocks in each stage.
+* `stage_dims`: channel width of each pyramid level.
+* `shifts`: channel-wise Clifford interaction offsets.
+* `downsample_mode`: one of `avgpool`, `conv`, or `patch`.
 
 
 ## 🖊️ Citation
