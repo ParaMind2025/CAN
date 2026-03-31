@@ -107,7 +107,9 @@ We evaluate the hierarchical pyramid CAN on two medical classification benchmark
 | MCC | 0.6056 | 0.6658 | 0.4109 | 0.5824 | 0.6050 | 0.7398 | 0.7326 |
 | Params | 23.5M | 26.5M | 21.7M | 27.8M | 6.58M | 0.89M | 0.36M |
 
-> **Observation:** The pyramid CAN consistently improves the accuracy/efficiency trade-off on both datasets. `CAN-1` gives the strongest top-line accuracy, while `CAN-2` retains competitive performance with only **0.36M** parameters.
+> **Observation:** The pyramid CAN consistently improves the accuracy/efficiency trade-off on both datasets. `CAN-1` gives the strongest top-line accuracy, while `CAN-2` retains competitive performance with only **0.36M** parameters. For all models on the medical datasets, we train from scratch for 200 epochs.
+
+
 
 
 ## 🛠️ Usage
