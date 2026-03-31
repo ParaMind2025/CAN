@@ -84,7 +84,7 @@ This design is controlled by `stage_depths` and `stage_dims`: the former defines
 
 ## 🏥 Medical Image Results
 
-We evaluate the hierarchical pyramid CAN on two medical classification benchmarks. `CAN-1` `CAN-2`  and `CAN-3` denote three compact pyramid variants with different capacity budgets. Both datasets are resized to 224×224 before being input to the network.
+We evaluate the hierarchical pyramid CAN on two medical classification benchmarks. `CAN-1` `CAN-2`  and `CAN-3` denote three compact pyramid variants with different capacity budgets. Both datasets are **resized to 224×224** before being input to the network.
 
 | Kvasir-Dataset-v2 | ISIC2018 |
 | :---: | :---: |
