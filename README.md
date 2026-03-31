@@ -49,9 +49,9 @@ We compare CliffordNet against established efficient backbones under a rigorous 
 | **CliffordNet (Ours)** | | | | | |
 | **CAN-Nano** | **1.4M** | **0.0** | Diff ($\Delta H$) | **77.82%** | <span style="color:green">> ResNet-18</span> |
 | **CAN-Lite** | **2.6M** | **0.0** | Diff ($\Delta H$) | **79.05%** | <span style="color:green">~ ResNet-50</span> |
-| **CAN-32**| 4.8M | 0.0 | Full | **81.42%** | <span style="color:green">**SOTA**</span> |
-| **CAN-64 (Deep)**| 8.6M | 0.0 | Full | **82.46%** | <span style="color:green">**SOTA**</span> |
-| **CAN-96 (Deep)**| 12.8M | 0.0 | Full | **83.47%** | <span style="color:green">**SOTA**</span> |
+| **CAN-32**| 4.8M | 0.0 | Diff ($\Delta H$) | **81.42%** | <span style="color:green">**SOTA**</span> |
+| **CAN-64 (Deep)**| 8.6M | 0.0 | Diff ($\Delta H$) | **82.46%** | <span style="color:green">**SOTA**</span> |
+| **CAN-96 (Deep)**| 12.8M | 0.0 | Diff ($\Delta H$) | **83.47%** | <span style="color:green">**SOTA**</span> |
 
 > **Key Insight:** Our **Nano** variant (1.4M) outperforms the heavy-weight **ResNet-18** (11.2M) by **+1.07%** while using **$8\times$ fewer parameters**. The **Lite** variant (No-FFN) effectively matches ResNet-50 with **$9\times$ fewer parameters**.
 
