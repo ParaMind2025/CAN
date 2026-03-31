@@ -71,7 +71,7 @@ $$
 
 ### Hierarchical Pyramid CAN
 
-For dense medical visual patterns, we further extend CAN into a **hierarchical pyramid backbone** implemented in [`model_hier.py`](/Users/xyz/Desktop/can_class/model_hier.py). Instead of keeping a single spatial scale throughout the network, `HierarchicalCliffordNet` gradually reduces resolution while increasing semantic capacity across stages.
+For dense medical visual patterns, we further extend CAN into a **hierarchical pyramid backbone** implemented in `model_hier.py`. Instead of keeping a single spatial scale throughout the network, `HierarchicalCliffordNet` gradually reduces resolution while increasing semantic capacity across stages.
 
 The implementation follows a simple four-part design:
 
@@ -81,6 +81,34 @@ The implementation follows a simple four-part design:
 4. **Classification head** applies global average pooling, `LayerNorm`, and a linear classifier on the final-stage representation.
 
 This design is controlled by `stage_depths` and `stage_dims`: the former defines how many Clifford blocks are used at each scale, and the latter defines the channel width of each pyramid level. In the released medical training scripts, a representative setting is a 3-stage pyramid with `stage_depths=(3,4,5)`, `stage_dims=(32,64,96)`, `patch_size=2`, and `downsample_mode="conv"`
+
+## 🏥 Medical Image Results
+
+We evaluate the hierarchical pyramid CAN on two medical classification benchmarks. `CAN-1` `CAN-2`  and `CAN-3` denote three compact pyramid variants with different capacity budgets. Both datasets are resized to 224×224 before being input to the network.
+
+| Kvasir-Dataset-v2 | ISIC2018 |
+| --- | --- |
+| ![Kvasir](figs/kvasir-dataset-v2_grid.png) | ![ISIC2018](figs/ISIC2018_grid.png) |
+
+
+### Kvasir-Dataset-v2
+
+|  | resnet50 | densenet161 | vit-small | convnext_tiny | efficientvit | CAN-1 | CAN-2 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Acc | 88.50% | 89.08% | 75.50% | 77.83% | 82.83% | 91.58% | 90.33% |
+| MCC | 0.8689 | 0.8756 | 0.7209 | 0.7471 | 0.8041 | 0.9039 | 0.8902 |
+| Param | 23.5M | 26.5M | 21.7M | 27.8M | 6.58M | 1.66M | 0.36M |
+
+### ISIC2018
+
+|  | resnet50 | densenet161 | vit-small | convnext_tiny | efficientvit | CAN-3 | CAN-2 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Acc | 80.15% | 82.88% | 67.13% | 78.95% | 80.45% | 86.43% | 86.23% |
+| MCC | 0.6056 | 0.6658 | 0.4109 | 0.5824 | 0.6050 | 0.7398 | 0.7326 |
+| Param | 23.5M | 26.5M | 21.7M | 27.8M | 6.58M | 0.89M | 0.36M |
+
+> **Observation:** The pyramid CAN consistently improves the accuracy/efficiency trade-off on both datasets. `CAN-1` gives the strongest top-line accuracy, while `CAN-2` retains competitive performance with only **0.36M** parameters.
+
 
 ## 🛠️ Usage
 
