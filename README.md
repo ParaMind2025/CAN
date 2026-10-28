@@ -222,10 +222,17 @@ The same interface can be scaled by modifying:
 If you find this work helpful, please cite us:
 
 ```bibtex
-@article{2026cliffordnet,
+@article{ji2026cliffordnet,
   title={CliffordNet: All You Need is Geometric Algebra},
   author={Zhongping Ji},
   journal={arXiv preprint arXiv:2601.06793},
+  year={2026}
+}
+
+@article{ji2026subspacecliffordnetworks,
+  title={Subspace Clifford Networks}, 
+  author={Zhongping Ji},
+  journal={arXiv preprint arXiv:2610.37226},
   year={2026}
 }
 ```
